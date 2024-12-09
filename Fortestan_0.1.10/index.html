@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Fortestan</title>
+</head>
+
+<body style="margin: 0px; overflow: hidden;" oncontextmenu="return false;">
+  <canvas id="unity-canvas"
+    style="position: fixed; width: 100%; height: 100%; background: #231F20">
+  </canvas>
+
+  <div id="progress-bar" style="position: absolute; left: 0%; right: 100%; top: 49%; bottom: 49%; background-color: white;"></div>
+
+  <script src="Build/30e9b83e06368aaaf18ed684381fff71.loader.js"></script>
+  <script>
+    const settings = {
+      dataUrl: "Build/589a157ba57b6e7f1db4c509225c75a2.data",
+      frameworkUrl: "Build/0aacc7201a2b151e72c0cb854e779df6.framework.js",
+      codeUrl: "Build/17fb2b7bf9acbd23cfcd54365a4a1ce7.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "Forte",
+      productName: "Fortestan",
+      productVersion: "0.1.10",
+      matchWebGLToCanvasSize: true,
+      // devicePixelRatio: 2, // Uncomment this line to enable anti-aliasing
+    };
+
+    const progressBar = document.querySelector("#progress-bar");
+
+    setTimeout(() => {
+      createUnityInstance(document.querySelector("#unity-canvas"), settings, (progress) => {
+        progressBar.style.right = 100 * (1 - progress) + "%";
+      }).then(() => {
+        progressBar.style.display = "none";
+      }).catch((message) => {
+        alert(message);
+      });
+    }, 500); // Wait half a second before loading. Makes page more responsive on reload.
+  </script>
+</body>
+
+</html>
